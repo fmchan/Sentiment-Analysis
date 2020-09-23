@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>Financial News Sentiment Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <br>
+  <h2>Financial News Sentiment Analyzer</h2>
+  <p>To get the sentiment analysis for the financial news</p>
+  <div class="row" >
+    <form action="/get_news" method="post" target="_blank">
+      <table>
+        <tr>
+          <th>Date:</th>
+              <td>
+                <input id="publish_date" name="publish_date" type="date" onkeyup="checkDate()" required>
+              </td>
+        </tr>
+        <tr>
+              <td>
+                <button type="submit" id="get_news">GO</button>
+              </td>
+        </tr>
+      </table>
+      <br>
+    </form>
+    <form action="/get_analysis" method="post" target="_blank">
+      <table>
+          <tr>
+              <td>
+                  You may also input some sentences for testing sentiment analysis
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <textarea rows="10" cols="100" name="text" required></textarea>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <input type="hidden" name="is_input" value="true">
+                  <button type="submit" id="get_analysis">Start Analysis</button>
+              </td>
+          </tr>
+      </table>
+  </form>
+  </div>
+</div>
+</body>
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd<10) {
+            dd = '0' + dd
+        } 
+        if (mm<10) {
+            mm = '0' + mm
+        } 
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("publish_date").setAttribute("max", today);
+</script>
+</html>

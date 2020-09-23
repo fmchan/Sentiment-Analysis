@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Articles Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='scripts/script.js') }}"></script>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Publish date</th>
+            <td>{{json_stat.publish_date}}</td>
+        </tr>
+        <tr>
+            <th>Total articles</th>
+            <td>{{json_stat.total_articles}}</td>
+        </tr>
+        <tr>
+            <th>Positive over total (title)</th>
+            <td>{{json_stat.positive_title_over_total}}</td>
+        </tr>
+        <tr>
+            <th>Positive over total (content)</th>
+            <td>{{json_stat.positive_content_over_total}}</td>
+        </tr>
+    </table>
+    <br>
+        {% for article in json_articles %}
+        <form action="/get_analysis" method="post" target="_blank">
+            <table>
+                <tr>
+                    <th>Source link</th>
+                    <td><a target="_blank" href="{{article.link}}">{{article.link}}</a></td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{article.title}}</td>
+                </tr>
+                {% if article.sentiment_title %}
+                <tr>
+                    <th>Sentiment (title)</th>
+                    <td class="sentiment">{{article.sentiment_title}}</td>
+                </tr>
+                {% endif %}
+                {% if article.probability_title %}
+                <tr>
+                    <th>Sentiment probability (title)</th>
+                    <td>{{article.probability_title}}</td>
+                </tr>
+                {% endif %}
+                <!-- {% if article.content %}
+                <tr>
+                    <th>Content</th>
+                    <td>{{article.content}}</td>
+                </tr>
+                {% endif %} -->
+                {% if article.sentiment_content %}
+                <tr>
+                    <th>Sentiment (content)</th>
+                    <td class="sentiment">{{article.sentiment_content}}</td>
+                </tr>
+                {% endif %}
+                {% if article.probability_content %}
+                <tr>
+                    <th>Sentiment probability (content)</th>
+                    <td>{{article.probability_content}}</td>
+                </tr>
+                {% endif %}
+                {% if article.sentiment_title %}
+                <tr>
+                    <th>Analyzer link</th>
+                    <td><button type="submit" id="get_analysis">Click to analyze</button></td>
+                </tr>
+                {% endif %}
+                <br>
+                <input type="hidden" name="is_input" value="false">
+                <!-- <input type="hidden" name="title" value={{article.title}}> -->
+                <!-- <input type="hidden" name="content" value={{article.content}}> -->
+                <textarea hidden rows="10" cols="1000" name="content">{{article.content}}</textarea>
+                <textarea hidden rows="10" cols="100" name="title">{{article.title}}</textarea>
+            </table>
+        </form>
+        {% endfor %}
+</body>
+</html>

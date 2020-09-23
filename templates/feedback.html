@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='scripts/script.js') }}"></script>
+</head>
+<body>
+    <form action="{{ url_for('save_prediction')}}" method="post">
+        <table>
+            <tr>
+                <th>Title</th>
+                <td>{{result.get('title')}}</td>
+            </tr>
+            <tr>
+                <th>Key phrases (title)</th>
+                <td>{{result.get('analyzed_title')}}</td>
+            </tr>
+            <tr>
+                <th>Sentiment (title)</th>
+                <td class="sentiment">{{result.get('sentiment_title')}}</td>
+            </tr>
+            <tr>
+                <th>Sentiment probability (title)</th>
+                <td>{{result.get('probability_title')}}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{result.get('content')}}</td>
+            </tr>
+            <!-- <tr>
+                <th>Analyzed content</th>
+                <td>{{result.get('analyzed_content')}}</td>
+            </tr> -->
+            <tr>
+                <th>Sentiment (content)</th>
+                <td class="sentiment">{{result.get('sentiment_content')}}</td>
+            </tr>
+            <tr>
+                <th>Sentiment probability (title)</th>
+                <td>{{result.get('probability_content')}}</td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                {% if result.get('probability_title') != 1.0 %}
+                    <textarea hidden rows="10" cols="100" name="title">{{result.get('title')}}</textarea>
+                    <textarea hidden rows="10" cols="1000" name="content">{{result.get('content')}}</textarea>
+                    <textarea hidden rows="10" cols="100" name="sentiment_title">{{result.get('sentiment_title')}}</textarea>
+                    <textarea hidden rows="10" cols="100" name="sentiment_content">{{result.get('sentiment_content')}}</textarea>
+                    <p>please select the corrected answer</p>
+                    <button type="submit" name="expect_output" value="positive">It's Positive</button>&nbsp;
+                    <button type="submit" name="expect_output" value="negative">It's Negative</button>&nbsp;
+                {% endif %}
+                <button onclick="self.close()">No Coment & Close</button>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
