@@ -2,6 +2,7 @@
 # from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.chrome.options import Options
 import platform
+from pathlib import Path
 
 EXCLUDE_HEADERS = ['content']
 
@@ -39,7 +40,7 @@ SCROLL_PAUSE_TIME = 1
 SCRAP_PAUSE_TIME = 5
 
 # flask config
-HOST = '192.168.2.225'
+HOST = '192.168.232.96'
 PORT = 5050
 
 # web driver config
@@ -58,8 +59,8 @@ options.add_experimental_option("prefs", {
 
 # config by platform
 if platform.system() in ['Darwin', 'Windows']:
-    LOG_PATH = 'log/'
-    DATA_PATH = 'data/'
+    LOG_PATH = 'C://temp//sentiment-analysis//log/'
+    DATA_PATH = 'C://temp//sentiment-analysis//data/'
     WEBDRIVER_PATH = 'exe/chromedriver.exe'
     # WEBDRIVER_PATH = 'exe/geckodriver.exe'
     DB_PATH = 'sqlite:///aastock.db'
@@ -71,3 +72,6 @@ else:
     # WEBDRIVER_PATH = '/usr/local/apps/Training-Data-Extractor/exe/phantomjs'
     # WEBDRIVER_PATH = '/usr/local/apps/Training-Data-Extractor/exe/geckodriver'
     DB_PATH = 'sqlite:////root/aastock.db'
+
+Path(LOG_PATH).mkdir(parents=True, exist_ok=True)
+Path(DATA_PATH).mkdir(parents=True, exist_ok=True)

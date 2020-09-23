@@ -5,7 +5,7 @@ import jieba
 import jieba.analyse
 from sklearn.linear_model import SGDClassifier
 from sklearn.svm import LinearSVC
-from sklearn.externals import joblib
+import joblib
 from warnings import simplefilter
 import re
 import time
