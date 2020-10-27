@@ -37,7 +37,7 @@ def get_news():
     price_diff = 0
     price_diff_pct_change = 0
     hs_df = price.get_hist_stock_price('^HSI', publish_date)
-    if len(hs_df.index) > 0:
+    if len(hs_df.index) > 0 and hs_df.index[-1].strftime('%Y-%m-%d') == publish_date:
         current_price = round(hs_df.iloc[-1].Close, 2)
         price_diff = round(hs_df.iloc[-1].Close - hs_df.iloc[-2].Close, 2)
         price_diff_pct_change = round(price_diff / hs_df.iloc[-2].Close * 100, 2)

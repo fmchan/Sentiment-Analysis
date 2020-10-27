@@ -26,10 +26,12 @@
             <th>Positive over total (content)</th>
             <td>{{json_stat.positive_content_over_total}}</td>
         </tr>
+        {% if current_price > 0 %}
         <tr>
             <th>Heng Seng Index</th>
-            <td class="price">{{current_price}} (<span class="price_movement">{{price_diff_pct_change}}</span>%)</td>
+            <td id="price">{{current_price}} (<span id="price_movement">{{price_diff_pct_change}}</span>%)</td>
         </tr>
+        {% endif %}
     </table>
     <br>
         {% for article in json_articles %}
