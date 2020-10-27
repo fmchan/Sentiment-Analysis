@@ -33,10 +33,14 @@ def get_news():
     publish_date = request.form.get("publish_date")
     json_articles = []
     json_stat = []
+    current_price = 0
+    price_diff = 0
+    price_diff_pct_change = 0
     hs_df = price.get_hist_stock_price('^HSI', publish_date)
-    current_price = round(hs_df.iloc[1].Close, 2)
-    price_diff = round(hs_df.iloc[1].Close - hs_df.iloc[0].Close, 2)
-    price_diff_pct_change = round(price_diff / hs_df.iloc[0].Close * 100, 2)
+    if len(hs_df.index) > 0:
+        current_price = round(hs_df.iloc[-1].Close, 2)
+        price_diff = round(hs_df.iloc[-1].Close - hs_df.iloc[-2].Close, 2)
+        price_diff_pct_change = round(price_diff / hs_df.iloc[-2].Close * 100, 2)
     if publish_date is not None:
         publish_date = '{0:%Y-%m-%d}'.format(datetime.strptime(publish_date, '%Y-%m-%d'))
         logger.info("start retrieving news on [%s]", publish_date)
