@@ -10,6 +10,7 @@ import article
 from classifier import Classifier
 import pandas as pd
 from predictor import Predictor
+import service.stock_price as price
 # from flask_caching import Cache
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -32,13 +33,17 @@ def get_news():
     publish_date = request.form.get("publish_date")
     json_articles = []
     json_stat = []
+    hs_df = price.get_hist_stock_price('^HSI', publish_date)
+    current_price = round(hs_df.iloc[1].Close, 2)
+    price_diff = round(hs_df.iloc[1].Close - hs_df.iloc[0].Close, 2)
+    price_diff_pct_change = round(price_diff / hs_df.iloc[0].Close * 100, 2)
     if publish_date is not None:
         publish_date = '{0:%Y-%m-%d}'.format(datetime.strptime(publish_date, '%Y-%m-%d'))
         logger.info("start retrieving news on [%s]", publish_date)
         json_stat, json_articles = article.get_articles(publish_date)
     if json_stat and json_articles:
         # return json2html.convert(json = jsonData, clubbing = False)
-        return render_template('details.html', is_input=True, json_stat=json.loads(json_stat), json_articles=json.loads(json_articles))
+        return render_template('details.html', is_input=True, json_stat=json.loads(json_stat), json_articles=json.loads(json_articles), current_price=current_price, price_diff_pct_change=price_diff_pct_change)
     else:
         return "no news found for that date", publish_date
 

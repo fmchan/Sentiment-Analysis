@@ -40,7 +40,7 @@ SCROLL_PAUSE_TIME = 1
 SCRAP_PAUSE_TIME = 5
 
 # flask config
-HOST = '192.168.232.96'
+HOST = '192.168.2.225'
 PORT = 5050
 
 # web driver config
