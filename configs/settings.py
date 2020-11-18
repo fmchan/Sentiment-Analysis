@@ -23,6 +23,7 @@ TITLE_SGD_MODEL_PATH = 'predictor/train_title_sgd_model.m'
 CONTENT_SGD_MODEL_PATH = 'predictor/train_content_sgd_model.m'
 TITLE_LINEAR_SVC_MODEL_PATH = 'predictor/train_title_linearsvc_model.m'
 CONTENT_LINEAR_SVC_MODEL_PATH = 'predictor/train_content_linearsvc_model.m'
+PREDICTOR_PATH = 'predictor/'
 
 STOP_WORDS_FILE_PATH = 'dict/stop_words.txt'
 CUSTOM_DICT_PATH = 'dict/dict.txt.custom'
