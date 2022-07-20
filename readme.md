@@ -1,1 +1,1 @@
-firefox-63.0.tar.bz2 and phantomjs in exe folder and aastock-news-data in data folder are removed due to exceed the max size of github file restriction up to 50MB
+firefox-63.0.tar.bz2 and phantomjs in exe directory and aastock.db in root directory are removed due to exceed the max size of github file restriction up to 50MB
